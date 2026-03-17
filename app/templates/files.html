@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1 class="page-header">Uploaded Images</h1>
+
+{% include 'flash_messages.html' %}
+
+<div class="image-grid">
+    {% if images %}
+        {% for image in images %}
+        <div class="image-item">
+            <img src="{{ url_for('get_image', filename=image) }}" alt="{{ image }}" class="img-thumbnail">
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No images uploaded yet.</p>
+    {% endif %}
+</div>
+
+<style>
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px 0;
+    }
+    
+    .image-item {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+    
+    .image-item:hover {
+        transform: scale(1.05);
+    }
+    
+    .image-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
